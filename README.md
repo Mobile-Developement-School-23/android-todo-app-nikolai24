@@ -17,4 +17,12 @@
 -   Используется DiffUtil для обновления списка.
 -   Реализовано удаление дела с помощью функционала свайпа карточки ItemTouchHelper.
 -   С помощью MenuProvider на главном фрагменте добавлена возможность скрывать уже выполненные дела. Также добавлен подзаголовок, в котором отображается общее количество выполненных дел.
-
+     
+   
+##     
+![](https://github.com/Nikolai24/Screenshots/blob/master/100.jpg)  
+##  
+![](https://github.com/Nikolai24/Screenshots/blob/master/200.jpg)  
+##  
+![](https://github.com/Nikolai24/Screenshots/blob/master/300.jpg)     
+	
