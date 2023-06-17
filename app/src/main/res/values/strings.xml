@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">ToDoApp</string>
+    <string name="main_title">My plans</string>
+    <string name="sub_title">Done -&#160;</string>
+    <string name="visible">Visible</string>
+    <string name="not_visible">Not visible</string>
+    <string name="save">Save</string>
+    <string name="importance">Importance</string>
+    <string name="what_todo">What need to do...</string>
+    <string name="deadline">Deadline</string>
+    <string name="delete">Delete</string>
+    <string-array name="importance_array">
+        <item>Common</item>
+        <item>↓ Low</item>
+        <item><font color='#FF3B30'>&#160;&#160;!&#160;&#160;High</font></item>
+    </string-array>
+</resources>
