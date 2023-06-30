@@ -1,4 +1,4 @@
-package com.example.todoapp.adapter
+package com.example.todoapp.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

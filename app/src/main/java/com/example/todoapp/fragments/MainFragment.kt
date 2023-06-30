@@ -5,7 +5,6 @@ import android.graphics.Paint
 import android.graphics.drawable.VectorDrawable
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
@@ -18,8 +17,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.todoapp.R
 import com.example.todoapp.TodoItem
-import com.example.todoapp.TodoItemsRepository
-import com.example.todoapp.adapter.DataAdapter
+import com.example.todoapp.repository.TodoItemsRepository
+import com.example.todoapp.recyclerview.DataAdapter
 import com.example.todoapp.databinding.FragmentMainBinding
 
 class MainFragment : Fragment(), MenuProvider {
@@ -40,7 +39,7 @@ class MainFragment : Fragment(), MenuProvider {
 
     private val checkBoxListener: DataAdapter.OnCheckBoxClickListener = object: DataAdapter.OnCheckBoxClickListener{
         override fun onItemClick(item: TodoItem, position: Int) {
-            clickOnCheckBox(item.flag, position, item.id)
+            clickOnCheckBox(item.isCompleted, position, item.id)
         }
     }
 

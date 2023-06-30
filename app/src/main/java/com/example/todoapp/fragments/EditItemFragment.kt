@@ -8,12 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.MenuProvider
-import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.todoapp.*
 import com.example.todoapp.databinding.FragmentEditItemBinding
+import com.example.todoapp.repository.TodoItemsRepository
+import com.example.todoapp.utils.DateConverter
 
 class EditItemFragment : Fragment(), MenuProvider {
     private var _binding: FragmentEditItemBinding? = null
@@ -24,7 +25,7 @@ class EditItemFragment : Fragment(), MenuProvider {
     private var importance = Importance.COMMON
     private var id = ""
     private var position = 0
-    private var deadline = ""
+    private var deadline: Long? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,7 +56,7 @@ class EditItemFragment : Fragment(), MenuProvider {
                 TodoItemsRepository.deleteItem(position)
                 startMainActivity()
             }
-            binding.description.setText(item.description)
+            binding.description.setText(item.text)
             importance = item.importance
         }
 
@@ -76,22 +77,22 @@ class EditItemFragment : Fragment(), MenuProvider {
 
         binding.switchCompat.setOnCheckedChangeListener { _, isChecked ->
             if(isChecked){
-                if (deadline == ""){
-                    deadline = DateConverter.getStringDate()
+                if (deadline == null){
+                    deadline = DateConverter.getLongDate()
                 }
-                binding.dateText.text = DateConverter.dateConvert(deadline)
+                binding.dateText.text = DateConverter.dateConvert(deadline!!)
                 binding.cardViewDate.setCardBackgroundColor(ResourcesCompat.getColor(resources, R.color.white, null))
                 binding.cardViewDate.setOnClickListener{
                     datePickerDialog()
                 }
             }else{
                 binding.cardViewDate.setCardBackgroundColor(ResourcesCompat.getColor(resources, R.color.min_grey, null))
-                deadline = ""
-                binding.dateText.text = deadline
+                deadline = null
+                binding.dateText.text = ""
             }
         }
 
-        if (item.deadline == "") {
+        if (item.deadline == null) {
             binding.cardViewDate.setCardBackgroundColor(ResourcesCompat.getColor(resources, R.color.min_grey, null))
             binding.switchCompat.isChecked = false
         } else {
@@ -106,15 +107,15 @@ class EditItemFragment : Fragment(), MenuProvider {
 
     private fun datePickerDialog(){
         var intDate = Triple(0,0,0)
-        if (deadline == ""){
-            deadline = DateConverter.getStringDate()
+        if (deadline == null){
+            deadline = DateConverter.getLongDate()
             intDate = DateConverter.getIntDate()
         } else {
-            intDate = DateConverter.getIntDate(deadline)
+            intDate = DateConverter.getIntDate(deadline!!)
         }
         val dpd = DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener{ view, myear, mmonth, mday ->
-            deadline = "$mday $mmonth $myear"
-            binding.dateText.text = DateConverter.dateConvert(deadline)
+            deadline = DateConverter.getLongDate(myear, mmonth+1,  mday)
+            binding.dateText.text = DateConverter.dateConvert(deadline!!)
         }, intDate.third, intDate.second, intDate.first).show()
     }
 
@@ -124,17 +125,17 @@ class EditItemFragment : Fragment(), MenuProvider {
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         if (menuItem.itemId == R.id.actionSave){
-            item.description = binding.description.text.toString()
+            item.text = binding.description.text.toString()
             when (binding.spinner.selectedItemPosition){
                 0 -> importance = Importance.COMMON
                 1 -> importance = Importance.LOW
                 2 -> importance = Importance.HIGH
             }
             item.importance = importance
-            item.changeDate = DateConverter.getStringDate()
+            item.modifiedAt = DateConverter.getLongDate()
             item.deadline = deadline
             if (position == -1) {
-                item.creationDate = item.changeDate
+                item.createdAt = item.modifiedAt
             }
             TodoItemsRepository.saveItem(item, position)
             startMainActivity()

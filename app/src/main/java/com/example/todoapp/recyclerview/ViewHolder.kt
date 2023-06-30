@@ -1,4 +1,4 @@
-package com.example.todoapp.adapter
+package com.example.todoapp.recyclerview
 
 import android.graphics.Color
 import android.graphics.Paint
@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todoapp.DateConverter
+import com.example.todoapp.utils.DateConverter
 import com.example.todoapp.Importance
 import com.example.todoapp.R
 import com.example.todoapp.TodoItem
@@ -20,14 +20,14 @@ class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     private val deadline : TextView = itemView.findViewById(R.id.deadline)
 
     fun bind(item: TodoItem, listener: DataAdapter.OnItemClickListener, position: Int, checkBoxListener: DataAdapter.OnCheckBoxClickListener){
-        description.text = item.description
-        if (item.deadline == ""){
+        description.text = item.text
+        if (item.deadline == null){
             deadline.isVisible = false
         } else {
             deadline.isVisible = true
-            deadline.text = DateConverter.dateConvert(item.deadline)
+            deadline.text = DateConverter.dateConvert(item.deadline!!)
         }
-        if (item.flag) {
+        if (item.isCompleted) {
             checkbox.setImageResource(R.drawable.baseline_check_box_24)
             description.setTextColor(Color.GRAY)
             description.paintFlags = description.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
@@ -42,7 +42,7 @@ class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
             description.setTextColor(Color.BLACK)
             description.paintFlags = description.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
             importanceIcon.isVisible = true
-            if (item.deadline != ""){
+            if (item.deadline != null){
                 deadline.isVisible = true
             }
         }
