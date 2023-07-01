@@ -4,11 +4,14 @@
     <string name="sub_title">Выполнено -&#160;</string>
     <string name="visible">Visible</string>
     <string name="not_visible">Not visible</string>
+    <string name="network">Nerwork</string>
     <string name="save">Сохранить</string>
     <string name="importance">Важность</string>
     <string name="what_todo">Что надо сделать...</string>
     <string name="deadline">Сделать до</string>
     <string name="delete">Удалить</string>
+    <string name="no_internet">Нет подключения к Интернету</string>
+    <string name="request_sent">Запрос на обновление данных отправлен</string>
     <string-array name="importance_array">
         <item>Нет</item>
         <item>↓ Низкая</item>
