@@ -22,8 +22,7 @@ import com.example.todoapp.R
 import com.example.todoapp.database.TodoItem
 import com.example.todoapp.recyclerview.DataAdapter
 import com.example.todoapp.databinding.FragmentMainBinding
-import com.example.todoapp.retrofit.TodoApiImpl
-import com.example.todoapp.utils.NetworkCheck
+import com.example.todoapp.utils.DateConverter
 import com.example.todoapp.utils.NetworkCheck.isNetworkAvailable
 import com.example.todoapp.viewmodel.MainViewModel
 
@@ -183,6 +182,7 @@ class MainFragment : Fragment(), MenuProvider {
 
     private fun clickOnCheckBox(item: TodoItem, flag: Boolean, position: Int, id: String) {
         item.isCompleted = !flag
+        item.modifiedAt = DateConverter.getLongDate()
         mainViewModel.saveItem(item)
         adapter.notifyItemChanged(position)
     }

@@ -20,7 +20,7 @@ import kotlinx.coroutines.withContext
 class Repository(private val wordDao: TodoDao, private val context: Context) {
 
     val allItems: Flow<List<TodoItem>> = wordDao.getItems()
-    
+
     suspend fun insert(item: TodoItem) {
         withContext(Dispatchers.IO) {
             wordDao.insert(item)
