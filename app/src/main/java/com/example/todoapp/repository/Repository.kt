@@ -76,7 +76,9 @@ class Repository(private val wordDao: TodoDao, private val context: Context) {
     suspend fun dataUpdate(){
         if (isNetworkAvailable(context)){
             var listRes = TodoApiImpl.getList().toMutableList()
-            var listDB = wordDao.getList().toMutableList()
+            var listDB = withContext(Dispatchers.IO) {
+                wordDao.getList().toMutableList()
+            }
             val prefs = context.getSharedPreferences(TODO_PREF, Context.MODE_PRIVATE )
             val idInsert = prefs.getString(KEY_INSERT, "")!!.trim().split(" ")
             val idUpdate = prefs.getString(KEY_UPDATE, "")!!.trim().split(" ").toSet().toList()
@@ -108,8 +110,10 @@ class Repository(private val wordDao: TodoDao, private val context: Context) {
                 }
             }
             TodoApiImpl.updateList(listRes)
-            wordDao.deleteAll()
-            wordDao.insertAll(listRes)
+            withContext(Dispatchers.IO) {
+                wordDao.deleteAll()
+                wordDao.insertAll(listRes)
+            }
         }
     }
 }
