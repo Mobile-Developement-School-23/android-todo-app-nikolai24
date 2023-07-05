@@ -1,14 +1,9 @@
 package com.example.todoapp.fragments
 
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.drawable.VectorDrawable
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,12 +11,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.todoapp.R
 import com.example.todoapp.database.TodoItem
 import com.example.todoapp.recyclerview.DataAdapter
 import com.example.todoapp.databinding.FragmentMainBinding
+import com.example.todoapp.recyclerview.SwipeCallback
 import com.example.todoapp.utils.DateConverter
 import com.example.todoapp.utils.NetworkCheck.isNetworkAvailable
 import com.example.todoapp.viewmodel.MainViewModel
@@ -46,6 +41,13 @@ class MainFragment : Fragment(), MenuProvider {
         object : DataAdapter.OnCheckBoxClickListener {
             override fun onItemClick(item: TodoItem, position: Int) {
                 clickOnCheckBox(item, item.isCompleted, position, item.id)
+            }
+        }
+
+    private val swipeToDelete: SwipeCallback.SwipeToDelete =
+        object : SwipeCallback.SwipeToDelete {
+            override fun onItemClick(position: Int) {
+                swipeToDelete(position)
             }
         }
 
@@ -80,69 +82,7 @@ class MainFragment : Fragment(), MenuProvider {
                 startEditItemFragment("", -1)
             }
         }
-
-        val swipeCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return false
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val position = viewHolder.adapterPosition
-                var item = adapter.listItems[position]
-                when (direction) {
-                    ItemTouchHelper.LEFT -> {
-                        mainViewModel.deleteItem(item)
-                    }
-                }
-            }
-
-            override fun onChildDraw(
-                c: Canvas,
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                dX: Float,
-                dY: Float,
-                actionState: Int,
-                isCurrentlyActive: Boolean
-            ) {
-                val itemView: View = viewHolder.itemView
-                var p = Paint().also {
-                    it.color = ResourcesCompat.getColor(resources, R.color.vivid_red, null)
-                }
-                val icon = (ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.baseline_delete_24,
-                    null
-                ) as VectorDrawable).toBitmap()
-                c.drawRect(
-                    itemView.right.toFloat() + dX,
-                    itemView.top.toFloat(),
-                    itemView.right.toFloat(),
-                    itemView.bottom.toFloat(),
-                    p
-                )
-                val iconMarginRight = (dX * -0.1).coerceAtMost(70.0).coerceAtLeast(0.0)
-                c.drawBitmap(
-                    icon,
-                    itemView.right.toFloat() - iconMarginRight.toFloat() - icon.width,
-                    itemView.top.toFloat() + (itemView.bottom.toFloat() - itemView.top.toFloat() - icon.height) / 2,
-                    p
-                )
-                super.onChildDraw(
-                    c,
-                    recyclerView,
-                    viewHolder,
-                    dX,
-                    dY,
-                    actionState,
-                    isCurrentlyActive
-                )
-            }
-        }
+        val swipeCallback = SwipeCallback(swipeToDelete)
         val itemTouchHelper = ItemTouchHelper(swipeCallback)
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
     }
@@ -185,6 +125,11 @@ class MainFragment : Fragment(), MenuProvider {
         item.modifiedAt = DateConverter.getLongDate()
         mainViewModel.saveItem(item)
         adapter.notifyItemChanged(position)
+    }
+
+    private fun swipeToDelete(position: Int) {
+        var item = adapter.listItems[position]
+        mainViewModel.deleteItem(item)
     }
 
     private fun setSubtitle(s: String) {
