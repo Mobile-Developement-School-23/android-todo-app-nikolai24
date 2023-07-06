@@ -7,17 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
 import com.example.todoapp.database.TodoItem
 
-class DataAdapter(listener: OnItemClickListener, checkBoxListener: OnCheckBoxClickListener) :
+class DataAdapter(
+    private val listener: OnItemClickListener,
+    private val checkBoxListener: OnCheckBoxClickListener
+) :
     RecyclerView.Adapter<ViewHolder>() {
 
-    private val listener: OnItemClickListener
-    private val checkBoxListener: OnCheckBoxClickListener
     var listItems: MutableList<TodoItem> = mutableListOf()
-
-    init {
-        this.listener = listener
-        this.checkBoxListener = checkBoxListener
-    }
 
     interface OnItemClickListener {
         fun onItemClick(item: TodoItem, position: Int)
