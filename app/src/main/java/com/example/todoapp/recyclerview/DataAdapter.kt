@@ -7,16 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
 import com.example.todoapp.TodoItem
 
-class DataAdapter(listener: OnItemClickListener, checkBoxListener: OnCheckBoxClickListener): RecyclerView.Adapter<ViewHolder>() {
+class DataAdapter(
+    private val listener: OnItemClickListener,
+    private val checkBoxListener: OnCheckBoxClickListener
+) : RecyclerView.Adapter<ViewHolder>() {
 
     private var listItems: MutableList<TodoItem> = mutableListOf()
-    private val listener: OnItemClickListener
-    private val checkBoxListener: OnCheckBoxClickListener
-
-    init {
-        this.listener = listener
-        this.checkBoxListener = checkBoxListener
-    }
 
     interface OnItemClickListener {
         fun onItemClick(item: TodoItem, position: Int)
@@ -39,7 +35,7 @@ class DataAdapter(listener: OnItemClickListener, checkBoxListener: OnCheckBoxCli
         holder.bind(listItems[position], listener, position, checkBoxListener)
     }
 
-    fun setList(newList: List<TodoItem>){
+    fun setList(newList: List<TodoItem>) {
         val diffCallback = DiffUtilCallback(listItems, newList)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         listItems.clear()

@@ -7,7 +7,7 @@ import java.util.TimeZone
 
 object DateConverter {
 
-    fun getIntDate(longDate: Long): Triple<Int, Int, Int>{
+    fun getIntDate(longDate: Long): Triple<Int, Int, Int> {
         var date = Date(longDate * 1000)
         val calendar = Calendar.getInstance((TimeZone.getTimeZone("Europe/Moscow")))
         calendar.time = date
@@ -17,25 +17,25 @@ object DateConverter {
         return Triple(day, month, year)
     }
 
-    fun getLongDate(): Long{
+    fun getLongDate(): Long {
         return (Calendar.getInstance().timeInMillis / 1000)
     }
 
-    fun getLongDate(year: Int, month: Int, day: Int): Long{
+    fun getLongDate(year: Int, month: Int, day: Int): Long {
         val epoch = SimpleDateFormat("MM/dd/yyyy").parse("$month/$day/$year").time / 1000
         return epoch
     }
 
-    fun dateConvert(longDate: Long): String{
+    fun dateConvert(longDate: Long): String {
         var date = Date(longDate * 1000)
         val calendar = Calendar.getInstance((TimeZone.getTimeZone("Europe/Moscow")))
         calendar.time = date
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
-        var str= ""
+        var str = ""
         var monthStr = ""
-        when (month){
+        when (month) {
             0 -> monthStr = "января"
             1 -> monthStr = "февраля"
             2 -> monthStr = "марта"
@@ -54,7 +54,7 @@ object DateConverter {
     }
 
 
-    fun getIntDate(): Triple<Int, Int, Int>{
+    fun getIntDate(): Triple<Int, Int, Int> {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
@@ -62,7 +62,7 @@ object DateConverter {
         return Triple(day, month, year)
     }
 
-    fun getIntDate(str: String): Triple<Int, Int, Int>{
+    fun getIntDate(str: String): Triple<Int, Int, Int> {
         val list = str.split(" ").map { x -> x.toInt() }
         val year = list[2]
         val month = list[1]
@@ -70,7 +70,7 @@ object DateConverter {
         return Triple(day, month, year)
     }
 
-    fun getStringDate(): String{
+    fun getStringDate(): String {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
@@ -78,13 +78,13 @@ object DateConverter {
         return "$day $month $year"
     }
 
-    fun dateConvert(str: String): String{
+    fun dateConvert(str: String): String {
         val list = str.split(" ").map { x -> x.toInt() }
         val day = list[0]
         val year = list[2]
         var date = ""
         var month = ""
-        when (list[1]){
+        when (list[1]) {
             0 -> month = "января"
             1 -> month = "февраля"
             2 -> month = "марта"

@@ -10,7 +10,7 @@ data class TodoItem(
     var modifiedAt: Long? = null
 )
 
-enum class Importance{
+enum class Importance {
     LOW,
     COMMON,
     HIGH
