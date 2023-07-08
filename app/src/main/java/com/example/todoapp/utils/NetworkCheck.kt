@@ -4,6 +4,10 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 
+/**
+ * Internet connection check.
+ */
+
 object NetworkCheck {
     fun isNetworkAvailable(context: Context): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

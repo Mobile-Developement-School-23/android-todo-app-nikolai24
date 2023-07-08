@@ -1,9 +1,12 @@
-package com.example.todoapp.retrofit
+package com.example.todoapp.data.retrofit
 
-import com.example.todoapp.database.Importance
-import com.example.todoapp.database.TodoItem
+import com.example.todoapp.data.database.Importance
+import com.example.todoapp.data.database.TodoItem
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Model class TodoItemData for working with the server.
+ */
 data class TodoItemData(
     @SerializedName("id") var id: String,
     @SerializedName("text") var text: String,

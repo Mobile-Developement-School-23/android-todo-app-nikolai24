@@ -1,12 +1,9 @@
-package com.example.todoapp.repository
+package com.example.todoapp.data.repository
 
 import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import androidx.annotation.WorkerThread
-import com.example.todoapp.database.TodoItem
-import com.example.todoapp.database.TodoDao
-import com.example.todoapp.retrofit.TodoApiImpl
+import com.example.todoapp.data.retrofit.TodoApiImpl
+import com.example.todoapp.data.database.TodoItem
+import com.example.todoapp.data.database.TodoDao
 import com.example.todoapp.utils.AppConstants.KEY_DELETE
 import com.example.todoapp.utils.AppConstants.KEY_INSERT
 import com.example.todoapp.utils.AppConstants.KEY_UPDATE
@@ -15,104 +12,111 @@ import com.example.todoapp.utils.NetworkCheck.isNetworkAvailable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
+/**
+ * The repository handles data operations.
+ */
+class Repository @Inject constructor(
+    private val networkService: TodoApiImpl,
+    private val todoDao: TodoDao,
+    private val context: Context
+) {
 
-class Repository(private val wordDao: TodoDao, private val context: Context) {
-
-    val allItems: Flow<List<TodoItem>> = wordDao.getItems()
+    val allItems: Flow<List<TodoItem>> = todoDao.getItems()
 
     suspend fun insert(item: TodoItem) {
         withContext(Dispatchers.IO) {
-            wordDao.insert(item)
+            todoDao.insert(item)
         }
-        var prefs = context.getSharedPreferences(TODO_PREF, Context.MODE_PRIVATE )
+        val prefs = context.getSharedPreferences(TODO_PREF, Context.MODE_PRIVATE)
         var insertStr = prefs.getString(KEY_INSERT, "")
-        var id = item.id
+        val id = item.id
         insertStr = insertStr + " $id"
         val editor = prefs.edit()
         editor.putString(KEY_INSERT, insertStr)
         editor.apply()
-        if (isNetworkAvailable(context)){
-            TodoApiImpl.post(item)
+        if (isNetworkAvailable(context)) {
+            networkService.post(item)
         }
     }
 
     suspend fun update(item: TodoItem) {
         withContext(Dispatchers.IO) {
-            wordDao.update(item)
+            todoDao.update(item)
         }
-        var prefs = context.getSharedPreferences(TODO_PREF, Context.MODE_PRIVATE )
+        val prefs = context.getSharedPreferences(TODO_PREF, Context.MODE_PRIVATE)
         var insertStr = prefs.getString(KEY_UPDATE, "")
-        var id = item.id
+        val id = item.id
         insertStr += " $id"
         val editor = prefs.edit()
         editor.putString(KEY_UPDATE, insertStr)
         editor.apply()
-        if (isNetworkAvailable(context)){
-            TodoApiImpl.put(item)
+        if (isNetworkAvailable(context)) {
+            networkService.put(item)
         }
     }
 
     suspend fun delete(item: TodoItem) {
         withContext(Dispatchers.IO) {
-            wordDao.delete(item)
+            todoDao.delete(item)
         }
-        var prefs = context.getSharedPreferences(TODO_PREF, Context.MODE_PRIVATE )
+        val prefs = context.getSharedPreferences(TODO_PREF, Context.MODE_PRIVATE)
         var insertStr = prefs.getString(KEY_DELETE, "")
-        var id = item.id
+        val id = item.id
         insertStr += " $id"
         val editor = prefs.edit()
         editor.putString(KEY_DELETE, insertStr)
         editor.apply()
-        if (isNetworkAvailable(context)){
-            TodoApiImpl.delete(item)
+        if (isNetworkAvailable(context)) {
+            networkService.delete(item)
         }
     }
 
     fun getItemByID(id: String): TodoItem {
-        return wordDao.getItemByID(id)
+        return todoDao.getItemByID(id)
     }
 
-    suspend fun dataUpdate(){
-        if (isNetworkAvailable(context)){
-            var listRes = TodoApiImpl.getList().toMutableList()
+    suspend fun dataUpdate() {
+        if (isNetworkAvailable(context)) {
+            var listRes = networkService.getList().toMutableList()
             var listDB = withContext(Dispatchers.IO) {
-                wordDao.getList().toMutableList()
+                todoDao.getList().toMutableList()
             }
-            val prefs = context.getSharedPreferences(TODO_PREF, Context.MODE_PRIVATE )
+            val prefs = context.getSharedPreferences(TODO_PREF, Context.MODE_PRIVATE)
             val idInsert = prefs.getString(KEY_INSERT, "")!!.trim().split(" ")
             val idUpdate = prefs.getString(KEY_UPDATE, "")!!.trim().split(" ").toSet().toList()
             val idDelete = prefs.getString(KEY_DELETE, "")!!.trim().split(" ")
             prefs.edit().clear().commit()
-            for (i in 0 until idInsert.size){
+            for (i in 0 until idInsert.size) {
                 var id = idInsert[i]
                 var item = listDB.firstOrNull { it.id == id }
-                if (item != null){
+                if (item != null) {
                     listRes.add(item)
                 }
             }
-            for (i in 0 until idUpdate.size){
+            for (i in 0 until idUpdate.size) {
                 var id = idUpdate[i]
                 var item = listDB.firstOrNull { it.id == id }
                 var oldItem = listRes.firstOrNull { it.id == id }
-                if (oldItem != null){
+                if (oldItem != null) {
                     listRes.remove(oldItem)
                 }
-                if (item != null){
+                if (item != null) {
                     listRes.add(item)
                 }
             }
-            for (i in 0 until idDelete.size){
+            for (i in 0 until idDelete.size) {
                 var id = idDelete[i]
                 var item = listRes.firstOrNull { it.id == id }
-                if (item != null){
+                if (item != null) {
                     listRes.remove(item)
                 }
             }
-            TodoApiImpl.updateList(listRes)
+            networkService.updateList(listRes)
             withContext(Dispatchers.IO) {
-                wordDao.deleteAll()
-                wordDao.insertAll(listRes)
+                todoDao.deleteAll()
+                todoDao.insertAll(listRes)
             }
         }
     }

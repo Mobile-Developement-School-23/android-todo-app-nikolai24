@@ -1,4 +1,4 @@
-package com.example.todoapp.database
+package com.example.todoapp.data.database
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -7,6 +7,10 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
+
+/**
+ * Data Access Object for the TodoItem table.
+ */
 
 @Dao
 interface TodoDao {

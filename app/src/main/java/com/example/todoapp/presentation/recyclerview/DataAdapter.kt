@@ -1,11 +1,11 @@
-package com.example.todoapp.recyclerview
+package com.example.todoapp.presentation.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
-import com.example.todoapp.database.TodoItem
+import com.example.todoapp.data.database.TodoItem
 
 class DataAdapter(
     private val listener: OnItemClickListener,

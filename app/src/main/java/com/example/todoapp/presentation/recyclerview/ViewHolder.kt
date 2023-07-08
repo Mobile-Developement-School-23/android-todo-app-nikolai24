@@ -1,4 +1,4 @@
-package com.example.todoapp.recyclerview
+package com.example.todoapp.presentation.recyclerview
 
 import android.graphics.Color
 import android.graphics.Paint
@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.utils.DateConverter
-import com.example.todoapp.database.Importance
+import com.example.todoapp.data.database.Importance
 import com.example.todoapp.R
-import com.example.todoapp.database.TodoItem
+import com.example.todoapp.data.database.TodoItem
 
 class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val description: TextView = itemView.findViewById(R.id.description)

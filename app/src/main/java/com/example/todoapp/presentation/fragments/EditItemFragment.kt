@@ -1,4 +1,4 @@
-package com.example.todoapp.fragments
+package com.example.todoapp.presentation.fragments
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -13,13 +13,21 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.todoapp.*
-import com.example.todoapp.database.Importance
-import com.example.todoapp.database.TodoItem
+import com.example.todoapp.app.App
+import com.example.todoapp.data.database.Importance
+import com.example.todoapp.data.database.TodoItem
 import com.example.todoapp.databinding.FragmentEditItemBinding
+import com.example.todoapp.di.components.EditItemFragmentComponent
 import com.example.todoapp.utils.DateConverter
-import com.example.todoapp.viewmodel.MainViewModel
+import com.example.todoapp.presentation.viewmodel.MainViewModel
+import com.example.todoapp.presentation.viewmodel.MainViewModelFactory
+import javax.inject.Inject
 
 class EditItemFragment : Fragment(), MenuProvider {
+
+    @Inject
+    lateinit var vmFactory: MainViewModelFactory
+    private lateinit var mainViewModel: MainViewModel
     private var _binding: FragmentEditItemBinding? = null
     private val binding get() = _binding!!
     private lateinit var controller: NavController
@@ -29,7 +37,7 @@ class EditItemFragment : Fragment(), MenuProvider {
     private var id = ""
     private var position = 0
     private var deadline: Long? = null
-    private lateinit var mainViewModel: MainViewModel
+    private lateinit var component: EditItemFragmentComponent
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +56,9 @@ class EditItemFragment : Fragment(), MenuProvider {
         (activity as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_close_24)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         controller = findNavController()
-        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        component = (activity?.application as App).appComponent.editItemFragmentComponent()
+        component.inject(this)
+        mainViewModel = ViewModelProvider(this, vmFactory).get(MainViewModel::class.java)
         id = args.id
         position = args.position
         item = mainViewModel.getItem(id)

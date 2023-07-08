@@ -5,6 +5,10 @@ import java.util.Calendar
 import java.util.Date
 import java.util.TimeZone
 
+/**
+ * Convert date to different types.
+ */
+
 object DateConverter {
 
     fun getIntDate(longDate: Long): Triple<Int, Int, Int> {

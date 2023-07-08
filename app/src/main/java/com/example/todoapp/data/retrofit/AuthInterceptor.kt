@@ -1,8 +1,12 @@
-package com.example.todoapp.retrofit
+package com.example.todoapp.data.retrofit
 
 import com.example.todoapp.utils.AppConstants.TOKEN
 import okhttp3.Interceptor
 import okhttp3.Response
+
+/**
+ * Creating an Authorization Header.
+ */
 
 class AuthInterceptor() : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {

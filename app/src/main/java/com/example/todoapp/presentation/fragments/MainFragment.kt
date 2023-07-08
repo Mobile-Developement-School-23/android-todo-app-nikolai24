@@ -1,4 +1,4 @@
-package com.example.todoapp.fragments
+package com.example.todoapp.presentation.fragments
 
 import android.os.Bundle
 import android.view.*
@@ -6,29 +6,36 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.todoapp.R
-import com.example.todoapp.database.TodoItem
-import com.example.todoapp.recyclerview.DataAdapter
+import com.example.todoapp.app.App
+import com.example.todoapp.data.database.TodoItem
+import com.example.todoapp.presentation.recyclerview.DataAdapter
 import com.example.todoapp.databinding.FragmentMainBinding
-import com.example.todoapp.recyclerview.SwipeCallback
+import com.example.todoapp.di.components.MainFragmentComponent
+import com.example.todoapp.presentation.recyclerview.SwipeCallback
 import com.example.todoapp.utils.DateConverter
 import com.example.todoapp.utils.NetworkCheck.isNetworkAvailable
-import com.example.todoapp.viewmodel.MainViewModel
+import com.example.todoapp.presentation.viewmodel.MainViewModel
+import com.example.todoapp.presentation.viewmodel.MainViewModelFactory
+import javax.inject.Inject
 
 class MainFragment : Fragment(), MenuProvider {
+
+    @Inject
+    lateinit var vmFactory: MainViewModelFactory
+    private lateinit var mainViewModel: MainViewModel
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: DataAdapter
     private lateinit var lManager: StaggeredGridLayoutManager
     private lateinit var controller: NavController
     private var completedItems = 0
-    private lateinit var mainViewModel: MainViewModel
+    private lateinit var component: MainFragmentComponent
 
     private val listener: DataAdapter.OnItemClickListener =
         object : DataAdapter.OnItemClickListener {
@@ -67,13 +74,15 @@ class MainFragment : Fragment(), MenuProvider {
         (activity as AppCompatActivity).supportActionBar?.title =
             context?.resources?.getString(R.string.main_title)
         controller = findNavController()
-        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        component = (activity?.application as App).appComponent.mainFragmentComponent()
+        component.inject(this)
+        mainViewModel = ViewModelProvider(this, vmFactory).get(MainViewModel::class.java)
         adapter = DataAdapter(listener, checkBoxListener)
-        mainViewModel.allItems.observe(viewLifecycleOwner, Observer { items ->
+        mainViewModel.allItems.observe(viewLifecycleOwner) { items ->
             completedItems = items.filter { it.isCompleted }.size
             setSubtitle(completedItems.toString())
             adapter.setList(items)
-        })
+        }
         binding.apply {
             recyclerView.adapter = adapter
             lManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
@@ -128,7 +137,7 @@ class MainFragment : Fragment(), MenuProvider {
     }
 
     private fun swipeToDelete(position: Int) {
-        var item = adapter.listItems[position]
+        val item = adapter.listItems[position]
         mainViewModel.deleteItem(item)
     }
 

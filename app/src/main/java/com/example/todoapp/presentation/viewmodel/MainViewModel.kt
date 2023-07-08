@@ -1,27 +1,24 @@
-package com.example.todoapp.viewmodel
+package com.example.todoapp.presentation.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.todoapp.database.Importance
-import com.example.todoapp.database.TodoItem
-import com.example.todoapp.database.TodoDatabase
-import com.example.todoapp.repository.Repository
+import com.example.todoapp.data.database.Importance
+import com.example.todoapp.data.database.TodoItem
+import com.example.todoapp.data.database.TodoDatabase
+import com.example.todoapp.data.repository.Repository
 import com.example.todoapp.utils.IdGenerator.getNewId
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
-    private val repository: Repository
-    val allItems: LiveData<List<TodoItem>>
-
-    init {
-        val todoDao = TodoDatabase.getDatabase(application).todoDao()
-        repository = Repository(todoDao, application.applicationContext)
-        allItems = repository.allItems.asLiveData()
-    }
+    private val _allItems = repository.allItems.asLiveData()
+    val allItems = _allItems
 
     fun dataUpdate() = viewModelScope.launch {
         repository.dataUpdate()

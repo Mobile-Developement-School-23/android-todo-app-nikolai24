@@ -1,11 +1,15 @@
-package com.example.todoapp.database
+package com.example.todoapp.data.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
-import com.example.todoapp.retrofit.TodoItemData
+import com.example.todoapp.data.retrofit.TodoItemData
+
+/**
+ * Model class TodoItem to store in the database.
+ */
 
 @Entity(tableName = "todo_table")
 data class TodoItem(

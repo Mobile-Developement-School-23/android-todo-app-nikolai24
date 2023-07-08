@@ -1,4 +1,4 @@
-package com.example.todoapp.recyclerview
+package com.example.todoapp.presentation.recyclerview
 
 import android.graphics.Canvas
 import android.graphics.Paint
