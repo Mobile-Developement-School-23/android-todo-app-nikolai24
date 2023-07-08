@@ -5,7 +5,7 @@ import com.example.todoapp.data.database.TodoItem
 import com.google.gson.annotations.SerializedName
 
 /**
- * Model class TodoItemData for working with the server.
+ * Model class TodoItemData for working with the server
  */
 data class TodoItemData(
     @SerializedName("id") var id: String,

@@ -6,7 +6,7 @@ import java.util.Date
 import java.util.TimeZone
 
 /**
- * Convert date to different types.
+ * Convert date to different types
  */
 
 object DateConverter {

@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import com.example.todoapp.data.retrofit.TodoItemData
 
 /**
- * Model class TodoItem to store in the database.
+ * Model class TodoItem to store in the database
  */
 
 @Entity(tableName = "todo_table")

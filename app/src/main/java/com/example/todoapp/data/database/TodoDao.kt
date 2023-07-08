@@ -9,7 +9,7 @@ import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Data Access Object for the TodoItem table.
+ * Data Access Object for the TodoItem table
  */
 
 @Dao

@@ -3,7 +3,7 @@ package com.example.todoapp.utils
 import java.util.UUID
 
 /**
- * ID generation.
+ * ID generation
  */
 
 object IdGenerator {

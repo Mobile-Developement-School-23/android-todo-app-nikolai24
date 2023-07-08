@@ -15,7 +15,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
- * The repository handles data operations.
+ * The repository handles data operations
  */
 class Repository @Inject constructor(
     private val networkService: TodoApiImpl,

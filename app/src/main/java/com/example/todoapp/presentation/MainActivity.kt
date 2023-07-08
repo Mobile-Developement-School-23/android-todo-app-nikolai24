@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.example.todoapp.R
 
 /**
- * Single activity in which the fragments are located.
+ * Single activity in which the fragments are located
  */
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

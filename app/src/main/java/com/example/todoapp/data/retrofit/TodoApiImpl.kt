@@ -10,7 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 /**
- * Implementation of the interface for working with the server.
+ * Implementation of the interface for working with the server
  */
 
 class TodoApiImpl {

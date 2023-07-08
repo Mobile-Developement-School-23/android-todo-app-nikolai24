@@ -5,7 +5,7 @@ import com.example.todoapp.di.components.AppComponent
 import com.example.todoapp.di.components.DaggerAppComponent
 
 /**
- * Creating an AppComponent.
+ * Creating an AppComponent
  */
 
 class App : Application() {

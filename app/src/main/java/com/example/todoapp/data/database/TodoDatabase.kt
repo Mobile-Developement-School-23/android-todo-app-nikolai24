@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 /**
- * The Room Database that contains the TodoItem table.
+ * The Room Database that contains the TodoItem table
  */
 
 @Database(entities = [TodoItem::class], version = 1)

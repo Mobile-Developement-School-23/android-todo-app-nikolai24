@@ -11,7 +11,7 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 
 /**
- * Interface for working with the server.
+ * Interface for working with the server
  */
 
 interface TodoApi {

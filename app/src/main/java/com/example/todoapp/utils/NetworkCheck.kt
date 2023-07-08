@@ -5,7 +5,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 
 /**
- * Internet connection check.
+ * Internet connection check
  */
 
 object NetworkCheck {

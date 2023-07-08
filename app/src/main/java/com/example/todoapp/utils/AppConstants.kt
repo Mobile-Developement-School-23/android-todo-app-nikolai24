@@ -1,7 +1,7 @@
 package com.example.todoapp.utils
 
 /**
- * Storing constants.
+ * Storing constants
  */
 object AppConstants {
     const val BASE_URL = "https://beta.mrdekk.ru/todobackend/"

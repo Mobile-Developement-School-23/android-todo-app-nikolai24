@@ -5,7 +5,7 @@ import okhttp3.Interceptor
 import okhttp3.Response
 
 /**
- * Creating an Authorization Header.
+ * Creating an Authorization Header
  */
 
 class AuthInterceptor() : Interceptor {
