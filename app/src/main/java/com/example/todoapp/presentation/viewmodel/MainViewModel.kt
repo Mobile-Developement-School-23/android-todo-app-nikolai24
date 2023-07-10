@@ -1,15 +1,10 @@
 package com.example.todoapp.presentation.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.todoapp.data.database.Importance
 import com.example.todoapp.data.database.TodoItem
-import com.example.todoapp.data.database.TodoDatabase
 import com.example.todoapp.data.repository.Repository
 import com.example.todoapp.utils.IdGenerator.getNewId
 import kotlinx.coroutines.launch

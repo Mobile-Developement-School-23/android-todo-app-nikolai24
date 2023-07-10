@@ -51,10 +51,7 @@ class EditItemFragment : Fragment(), MenuProvider {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.addMenuProvider(this, viewLifecycleOwner)
-        (activity as AppCompatActivity).supportActionBar?.title = ""
-        (activity as AppCompatActivity).supportActionBar?.subtitle = ""
-        (activity as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_close_24)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        settingActionBar()
         controller = findNavController()
         component = (activity?.application as App).appComponent.editItemFragmentComponent()
         component.inject(this)
@@ -62,6 +59,13 @@ class EditItemFragment : Fragment(), MenuProvider {
         id = args.id
         position = args.position
         item = mainViewModel.getItem(id)
+        deleteButtonInit()
+        spinnerCreated()
+        switchCreated()
+        setDeadline()
+    }
+
+    private fun deleteButtonInit(){
         if (id == "") {
             binding.deleteButton.setOnClickListener {
                 startMainActivity()
@@ -74,68 +78,17 @@ class EditItemFragment : Fragment(), MenuProvider {
             binding.description.setText(item.text)
             importance = item.importance
         }
-
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.importance_array,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.spinner.adapter = adapter
-        }
-
-        when (importance) {
-            Importance.COMMON -> binding.spinner.setSelection(0)
-            Importance.LOW -> binding.spinner.setSelection(1)
-            Importance.HIGH -> binding.spinner.setSelection(2)
-        }
-
-        binding.switchCompat.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                if (deadline == null) {
-                    deadline = DateConverter.getLongDate()
-                }
-                binding.dateText.text = DateConverter.dateConvert(deadline!!)
-                binding.cardViewDate.setCardBackgroundColor(
-                    ResourcesCompat.getColor(
-                        resources,
-                        R.color.white,
-                        null
-                    )
-                )
-                binding.cardViewDate.setOnClickListener {
-                    datePickerDialog()
-                }
-            } else {
-                binding.cardViewDate.setCardBackgroundColor(
-                    ResourcesCompat.getColor(
-                        resources,
-                        R.color.min_grey,
-                        null
-                    )
-                )
-                deadline = null
-                binding.dateText.text = ""
-            }
-        }
-
-        if (item.deadline == null) {
-            binding.cardViewDate.setCardBackgroundColor(
-                ResourcesCompat.getColor(
-                    resources,
-                    R.color.min_grey,
-                    null
-                )
-            )
-            binding.switchCompat.isChecked = false
-        } else {
-            deadline = item.deadline
-            binding.switchCompat.isChecked = true
-        }
     }
 
     private fun startMainActivity() {
         controller.navigate(R.id.mainFragment)
+    }
+
+    private fun settingActionBar(){
+        (activity as AppCompatActivity).supportActionBar?.title = ""
+        (activity as AppCompatActivity).supportActionBar?.subtitle = ""
+        (activity as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_close_24)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun datePickerDialog() {
@@ -184,6 +137,59 @@ class EditItemFragment : Fragment(), MenuProvider {
             }
         }
         return false
+    }
+
+    private fun spinnerCreated(){
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.importance_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.spinner.adapter = adapter
+        }
+        when (importance) {
+            Importance.COMMON -> binding.spinner.setSelection(0)
+            Importance.LOW -> binding.spinner.setSelection(1)
+            Importance.HIGH -> binding.spinner.setSelection(2)
+        }
+    }
+
+    private fun switchCreated(){
+        binding.switchCompat.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                if (deadline == null) {
+                    deadline = DateConverter.getLongDate()
+                }
+                binding.dateText.text = DateConverter.dateConvert(deadline!!)
+                binding.cardViewDate.setCardBackgroundColor(
+                    ResourcesCompat.getColor(resources, R.color.white, null)
+                )
+                binding.cardViewDate.setOnClickListener {
+                    datePickerDialog()
+                }
+            } else {
+                binding.cardViewDate.setCardBackgroundColor(
+                    ResourcesCompat.getColor(resources, R.color.min_grey,null)
+                )
+                deadline = null
+                binding.dateText.text = ""
+            }
+        }
+    }
+
+    private fun setDeadline(){
+        if (item.deadline == null) {
+            binding.cardViewDate.setCardBackgroundColor(
+                ResourcesCompat.getColor(
+                    resources, R.color.min_grey, null
+                )
+            )
+            binding.switchCompat.isChecked = false
+        } else {
+            deadline = item.deadline
+            binding.switchCompat.isChecked = true
+        }
     }
 
     override fun onDestroyView() {
