@@ -5,12 +5,12 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.todoapp.data.database.Importance
 import com.example.todoapp.data.database.TodoItem
-import com.example.todoapp.data.repository.Repository
+import com.example.todoapp.data.repository.TodoItemsRepository
 import com.example.todoapp.utils.IdGenerator.getNewId
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class MainViewModel @Inject constructor(private val repository: TodoItemsRepository) : ViewModel() {
 
     private val _allItems = repository.allItems.asLiveData()
     val allItems = _allItems

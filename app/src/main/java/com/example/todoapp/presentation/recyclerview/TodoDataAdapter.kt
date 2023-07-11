@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
 import com.example.todoapp.data.database.TodoItem
 
-class DataAdapter(
+class TodoDataAdapter(
     private val listener: OnItemClickListener,
     private val checkBoxListener: OnCheckBoxClickListener
 ) :
-    RecyclerView.Adapter<ViewHolder>() {
+    RecyclerView.Adapter<TodoViewHolder>() {
 
     var listItems: MutableList<TodoItem> = mutableListOf()
 
@@ -23,16 +23,16 @@ class DataAdapter(
         fun onItemClick(item: TodoItem, position: Int)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.todo_item, parent, false)
-        return ViewHolder(view)
+        return TodoViewHolder(view)
     }
 
     override fun getItemCount(): Int {
         return listItems.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         holder.bind(listItems[position], listener, position, checkBoxListener)
     }
 

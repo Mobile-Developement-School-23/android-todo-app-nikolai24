@@ -17,7 +17,7 @@ import javax.inject.Inject
 /**
  * The repository handles data operations
  */
-class Repository @Inject constructor(
+class TodoItemsRepository @Inject constructor(
     private val networkService: TodoApiImpl,
     private val todoDao: TodoDao,
     private val context: Context

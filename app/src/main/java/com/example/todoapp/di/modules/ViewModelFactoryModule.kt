@@ -1,6 +1,6 @@
 package com.example.todoapp.di.modules
 
-import com.example.todoapp.data.repository.Repository
+import com.example.todoapp.data.repository.TodoItemsRepository
 import com.example.todoapp.presentation.viewmodel.MainViewModelFactory
 import dagger.Module
 import dagger.Provides
@@ -9,7 +9,7 @@ import dagger.Provides
 class ViewModelFactoryModule {
 
     @Provides
-    fun provideViewModelFactory(repository: Repository): MainViewModelFactory {
+    fun provideViewModelFactory(repository: TodoItemsRepository): MainViewModelFactory {
         return MainViewModelFactory(repository)
     }
 

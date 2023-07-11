@@ -2,7 +2,7 @@ package com.example.todoapp.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.todoapp.data.repository.Repository
+import com.example.todoapp.data.repository.TodoItemsRepository
 import javax.inject.Inject
 import javax.inject.Scope
 
@@ -10,7 +10,7 @@ import javax.inject.Scope
 annotation class ViewModelFactoryScope
 
 @ViewModelFactoryScope
-class MainViewModelFactory @Inject constructor(val repository: Repository) :
+class MainViewModelFactory @Inject constructor(val repository: TodoItemsRepository) :
     ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

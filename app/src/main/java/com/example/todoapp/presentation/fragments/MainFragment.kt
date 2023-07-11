@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.todoapp.R
 import com.example.todoapp.app.App
 import com.example.todoapp.data.database.TodoItem
-import com.example.todoapp.presentation.recyclerview.DataAdapter
+import com.example.todoapp.presentation.recyclerview.TodoDataAdapter
 import com.example.todoapp.databinding.FragmentMainBinding
 import com.example.todoapp.di.components.MainFragmentComponent
 import com.example.todoapp.presentation.recyclerview.SwipeCallback
@@ -31,21 +31,21 @@ class MainFragment : Fragment(), MenuProvider {
     private lateinit var mainViewModel: MainViewModel
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: DataAdapter
+    private lateinit var adapter: TodoDataAdapter
     private lateinit var lManager: StaggeredGridLayoutManager
     private lateinit var controller: NavController
     private var completedItems = 0
     private lateinit var component: MainFragmentComponent
 
-    private val listener: DataAdapter.OnItemClickListener =
-        object : DataAdapter.OnItemClickListener {
+    private val listener: TodoDataAdapter.OnItemClickListener =
+        object : TodoDataAdapter.OnItemClickListener {
             override fun onItemClick(item: TodoItem, position: Int) {
                 startEditItemFragment(item.id, position)
             }
         }
 
-    private val checkBoxListener: DataAdapter.OnCheckBoxClickListener =
-        object : DataAdapter.OnCheckBoxClickListener {
+    private val checkBoxListener: TodoDataAdapter.OnCheckBoxClickListener =
+        object : TodoDataAdapter.OnCheckBoxClickListener {
             override fun onItemClick(item: TodoItem, position: Int) {
                 clickOnCheckBox(item, item.isCompleted, position, item.id)
             }
@@ -70,14 +70,12 @@ class MainFragment : Fragment(), MenuProvider {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.addMenuProvider(this, viewLifecycleOwner)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        (activity as AppCompatActivity).supportActionBar?.title =
-            context?.resources?.getString(R.string.main_title)
+        settingActionBar()
         controller = findNavController()
         component = (activity?.application as App).appComponent.mainFragmentComponent()
         component.inject(this)
         mainViewModel = ViewModelProvider(this, vmFactory).get(MainViewModel::class.java)
-        adapter = DataAdapter(listener, checkBoxListener)
+        adapter = TodoDataAdapter(listener, checkBoxListener)
         mainViewModel.allItems.observe(viewLifecycleOwner) { items ->
             completedItems = items.filter { it.isCompleted }.size
             setSubtitle(completedItems.toString())
@@ -91,6 +89,15 @@ class MainFragment : Fragment(), MenuProvider {
                 startEditItemFragment("", -1)
             }
         }
+        swipeInit()
+    }
+
+    private fun settingActionBar(){
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        (activity as AppCompatActivity).supportActionBar?.title = context?.resources?.getString(R.string.main_title)
+    }
+
+    private fun swipeInit(){
         val swipeCallback = SwipeCallback(swipeToDelete)
         val itemTouchHelper = ItemTouchHelper(swipeCallback)
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)

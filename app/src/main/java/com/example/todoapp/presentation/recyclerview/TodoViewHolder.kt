@@ -12,7 +12,7 @@ import com.example.todoapp.data.database.Importance
 import com.example.todoapp.R
 import com.example.todoapp.data.database.TodoItem
 
-class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val description: TextView = itemView.findViewById(R.id.description)
     private val checkbox: ImageView = itemView.findViewById(R.id.checkbox)
     private val importanceIcon: ImageView = itemView.findViewById(R.id.importanceIcon)
@@ -21,9 +21,9 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(
         item: TodoItem,
-        listener: DataAdapter.OnItemClickListener,
+        listener: TodoDataAdapter.OnItemClickListener,
         position: Int,
-        checkBoxListener: DataAdapter.OnCheckBoxClickListener
+        checkBoxListener: TodoDataAdapter.OnCheckBoxClickListener
     ) {
         description.text = item.text
         if (item.deadline == null) {
