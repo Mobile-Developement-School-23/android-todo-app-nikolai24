@@ -1,0 +1,17 @@
+<resources>
+    <style name="AppBackground">
+        <item name="android:background">@color/floral_white</item>
+    </style>
+    <style name="TextColor">
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="DateTextColor">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+    <style name="LineColor">
+        <item name="android:background">@color/grey</item>
+    </style>
+    <style name="DeleteButton">
+        <item name="android:backgroundTint">@color/white</item>
+    </style>
+</resources>

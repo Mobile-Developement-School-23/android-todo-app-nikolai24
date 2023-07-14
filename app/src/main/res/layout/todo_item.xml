@@ -38,6 +38,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            style="@style/TextColor"
             android:id="@+id/description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -162,29 +162,31 @@ class EditItemFragment : Fragment(), MenuProvider {
                     deadline = DateConverter.getLongDate()
                 }
                 binding.dateText.text = DateConverter.dateConvert(deadline!!)
-                binding.cardViewDate.setCardBackgroundColor(
-                    ResourcesCompat.getColor(resources, R.color.white, null)
-                )
+//                binding.cardViewDate.setCardBackgroundColor(
+//                    ResourcesCompat.getColor(resources, R.color.white, null)
+//                )
                 binding.cardViewDate.setOnClickListener {
                     datePickerDialog()
                 }
             } else {
-                binding.cardViewDate.setCardBackgroundColor(
-                    ResourcesCompat.getColor(resources, R.color.min_grey,null)
-                )
+//                binding.cardViewDate.setCardBackgroundColor(
+//                    ResourcesCompat.getColor(resources, R.color.min_grey,null)
+//                )
                 deadline = null
                 binding.dateText.text = ""
+                binding.cardViewDate.setOnClickListener {
+                }
             }
         }
     }
 
     private fun setDeadline(){
         if (item.deadline == null) {
-            binding.cardViewDate.setCardBackgroundColor(
-                ResourcesCompat.getColor(
-                    resources, R.color.min_grey, null
-                )
-            )
+//            binding.cardViewDate.setCardBackgroundColor(
+//                ResourcesCompat.getColor(
+//                    resources, R.color.min_grey, null
+//                )
+//            )
             binding.switchCompat.isChecked = false
         } else {
             deadline = item.deadline

@@ -7,8 +7,8 @@
         android:title="@string/network"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/actionVisibility"
-        android:icon="@drawable/baseline_visibility_white_24"
+        android:id="@+id/actionSettings"
+        android:icon="@drawable/baseline_settings_24"
         android:title="@string/visible"
         app:showAsAction="ifRoom" />
 </menu>

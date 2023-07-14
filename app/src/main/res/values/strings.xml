@@ -12,6 +12,12 @@
     <string name="delete">Удалить</string>
     <string name="no_internet">Нет подключения к Интернету</string>
     <string name="request_sent">Запрос на обновление данных отправлен</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="settings_title">Настройки</string>
+    <string name="theme_selection">Выбор темы</string>
+    <string name="light_theme_selection">Всегда светлая</string>
+    <string name="dark_theme_selection">Всегда тёмная</string>
+    <string name="system_theme_selection">Как в системе</string>
     <string-array name="importance_array">
         <item>Нет</item>
         <item>↓ Низкая</item>

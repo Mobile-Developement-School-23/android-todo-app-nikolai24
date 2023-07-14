@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -108,7 +109,8 @@ class MainFragment : Fragment(), MenuProvider {
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        if (menuItem.itemId == R.id.actionVisibility) {
+        if (menuItem.itemId == R.id.actionSettings) {
+            startSettingsFragment()
             return true
         }
         if (menuItem.itemId == R.id.actionNetwork) {
@@ -133,6 +135,10 @@ class MainFragment : Fragment(), MenuProvider {
 
     private fun startEditItemFragment(id: String, position: Int) {
         val action = MainFragmentDirections.actionMainFragmentToEditItemFragment(id, position)
+        controller.navigate(action)
+    }
+    private fun startSettingsFragment() {
+        val action = MainFragmentDirections.actionMainFragmentToSettingsFragment()
         controller.navigate(action)
     }
 

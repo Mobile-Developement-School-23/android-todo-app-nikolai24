@@ -34,7 +34,6 @@ class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
         if (item.isCompleted) {
             checkbox.setImageResource(R.drawable.baseline_check_box_24)
-            description.setTextColor(Color.GRAY)
             description.paintFlags = description.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             importanceIcon.isVisible = false
             deadline.isVisible = false
@@ -44,7 +43,6 @@ class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             } else {
                 checkbox.setImageResource(R.drawable.baseline_check_box_outline_blank_24)
             }
-            description.setTextColor(Color.BLACK)
             description.paintFlags = description.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
             importanceIcon.isVisible = true
             if (item.deadline != null) {
