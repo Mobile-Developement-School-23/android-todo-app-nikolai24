@@ -61,7 +61,7 @@ class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             importanceIcon.setImageResource(R.drawable.baseline_south_24)
         }
         if (item.importance == Importance.COMMON) {
-            importanceIcon.setImageResource(R.drawable.baseline_north_24)
+            importanceIcon.setImageResource(R.drawable.baseline_new_north_24)
         }
     }
 }

@@ -23,6 +23,7 @@ import com.example.todoapp.utils.DateConverter
 import com.example.todoapp.utils.NetworkCheck.isNetworkAvailable
 import com.example.todoapp.presentation.viewmodel.MainViewModel
 import com.example.todoapp.presentation.viewmodel.MainViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
 class MainFragment : Fragment(), MenuProvider {
@@ -152,6 +153,15 @@ class MainFragment : Fragment(), MenuProvider {
     private fun swipeToDelete(position: Int) {
         val item = adapter.listItems[position]
         mainViewModel.deleteItem(item)
+        runSnackbar(item.text)
+    }
+
+    fun runSnackbar(name: String){
+        Snackbar.make(binding.root, "Удалено дело: $name", Snackbar.LENGTH_LONG).apply {
+            setAction("Отмена"){
+                mainViewModel.restoreItem()
+            }.show()
+        }
     }
 
     private fun setSubtitle(s: String) {

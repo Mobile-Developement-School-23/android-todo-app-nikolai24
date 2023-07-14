@@ -21,6 +21,7 @@ import com.example.todoapp.di.components.EditItemFragmentComponent
 import com.example.todoapp.utils.DateConverter
 import com.example.todoapp.presentation.viewmodel.MainViewModel
 import com.example.todoapp.presentation.viewmodel.MainViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
 class EditItemFragment : Fragment(), MenuProvider {
@@ -73,10 +74,19 @@ class EditItemFragment : Fragment(), MenuProvider {
         } else {
             binding.deleteButton.setOnClickListener {
                 mainViewModel.deleteItem(item)
+                runSnackbar(item.text)
                 startMainActivity()
             }
             binding.description.setText(item.text)
             importance = item.importance
+        }
+    }
+
+    fun runSnackbar(name: String){
+        Snackbar.make(binding.root, "Удалено дело: $name", Snackbar.LENGTH_LONG).apply {
+            setAction("Отмена"){
+                mainViewModel.restoreItem()
+            }.show()
         }
     }
 
@@ -162,16 +172,10 @@ class EditItemFragment : Fragment(), MenuProvider {
                     deadline = DateConverter.getLongDate()
                 }
                 binding.dateText.text = DateConverter.dateConvert(deadline!!)
-//                binding.cardViewDate.setCardBackgroundColor(
-//                    ResourcesCompat.getColor(resources, R.color.white, null)
-//                )
                 binding.cardViewDate.setOnClickListener {
                     datePickerDialog()
                 }
             } else {
-//                binding.cardViewDate.setCardBackgroundColor(
-//                    ResourcesCompat.getColor(resources, R.color.min_grey,null)
-//                )
                 deadline = null
                 binding.dateText.text = ""
                 binding.cardViewDate.setOnClickListener {
@@ -182,11 +186,6 @@ class EditItemFragment : Fragment(), MenuProvider {
 
     private fun setDeadline(){
         if (item.deadline == null) {
-//            binding.cardViewDate.setCardBackgroundColor(
-//                ResourcesCompat.getColor(
-//                    resources, R.color.min_grey, null
-//                )
-//            )
             binding.switchCompat.isChecked = false
         } else {
             deadline = item.deadline
