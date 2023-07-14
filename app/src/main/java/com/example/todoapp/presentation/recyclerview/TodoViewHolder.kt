@@ -1,6 +1,5 @@
 package com.example.todoapp.presentation.recyclerview
 
-import android.graphics.Color
 import android.graphics.Paint
 import android.view.View
 import android.widget.ImageView

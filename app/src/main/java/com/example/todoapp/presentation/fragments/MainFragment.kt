@@ -157,7 +157,7 @@ class MainFragment : Fragment(), MenuProvider {
     }
 
     fun runSnackbar(name: String){
-        Snackbar.make(binding.root, "Удалено дело: $name", Snackbar.LENGTH_LONG).apply {
+        Snackbar.make(binding.root, "Удалено дело: $name", 5000).apply {
             setAction("Отмена"){
                 mainViewModel.restoreItem()
             }.show()
