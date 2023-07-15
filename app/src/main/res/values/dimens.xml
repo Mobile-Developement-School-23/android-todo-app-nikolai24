@@ -13,6 +13,7 @@
     <dimen name="end_16">16dp</dimen>
     <dimen name="size_16">16sp</dimen>
     <dimen name="size_18">18sp</dimen>
+    <dimen name="size_20">20sp</dimen>
     <dimen name="height_1">1dp</dimen>
     <dimen name="padding_10">10dp</dimen>
 </resources>

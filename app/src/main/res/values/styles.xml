@@ -13,6 +13,7 @@
     </style>
     <style name="DateTextColor">
         <item name="android:textColor">@color/blue</item>
+        <item name="android:textSize">@dimen/size_16</item>
     </style>
     <style name="LineStyle">
         <item name="android:background">@color/grey</item>
@@ -67,5 +68,8 @@
     <style name="CardItemStyle">
         <item name="android:layout_marginStart">@dimen/start_15</item>
         <item name="android:layout_marginEnd">@dimen/end_15</item>
+    </style>
+    <style name="EditTextStyle">
+        <item name="android:textSize">@dimen/size_20</item>
     </style>
 </resources>

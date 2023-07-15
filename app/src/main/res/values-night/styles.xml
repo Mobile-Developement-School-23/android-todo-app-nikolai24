@@ -13,6 +13,7 @@
     </style>
     <style name="DateTextColor">
         <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/size_16</item>
     </style>
     <style name="LineStyle">
         <item name="android:background">@color/dark_grey</item>
