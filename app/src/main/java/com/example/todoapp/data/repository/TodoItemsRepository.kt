@@ -6,7 +6,10 @@ import com.example.todoapp.data.database.TodoItem
 import com.example.todoapp.data.database.TodoDao
 import com.example.todoapp.utils.AppConstants.KEY_DELETE
 import com.example.todoapp.utils.AppConstants.KEY_INSERT
+import com.example.todoapp.utils.AppConstants.KEY_THEME
 import com.example.todoapp.utils.AppConstants.KEY_UPDATE
+import com.example.todoapp.utils.AppConstants.SYSTEM_THEME
+import com.example.todoapp.utils.AppConstants.THEME_PREF
 import com.example.todoapp.utils.AppConstants.TODO_PREF
 import com.example.todoapp.utils.NetworkCheck.isNetworkAvailable
 import kotlinx.coroutines.Dispatchers
@@ -75,6 +78,19 @@ class TodoItemsRepository @Inject constructor(
 
     fun getItemByID(id: String): TodoItem {
         return todoDao.getItemByID(id)
+    }
+
+    fun saveTheme(theme: String){
+        val prefs = context.getSharedPreferences(THEME_PREF, Context.MODE_PRIVATE)
+        val editor = prefs.edit()
+        editor.putString(KEY_THEME, theme)
+        editor.apply()
+    }
+
+    fun getTheme(): String?{
+        val prefs = context.getSharedPreferences(THEME_PREF, Context.MODE_PRIVATE)
+        var theme = prefs.getString(KEY_THEME, SYSTEM_THEME)
+        return theme
     }
 
     suspend fun dataUpdate() {

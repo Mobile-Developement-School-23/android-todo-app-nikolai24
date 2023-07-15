@@ -8,20 +8,29 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.todoapp.R
+import com.example.todoapp.app.App
 import com.example.todoapp.databinding.FragmentSettingsBinding
-
+import com.example.todoapp.di.components.SettingsFragmentComponent
+import com.example.todoapp.presentation.viewmodel.MainViewModel
+import com.example.todoapp.presentation.viewmodel.MainViewModelFactory
+import com.example.todoapp.utils.AppConstants
+import javax.inject.Inject
 
 class SettingsFragment : Fragment(), MenuProvider {
 
+    @Inject
+    lateinit var vmFactory: MainViewModelFactory
+    private lateinit var mainViewModel: MainViewModel
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
     private lateinit var controller: NavController
+    private lateinit var component: SettingsFragmentComponent
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,25 +46,22 @@ class SettingsFragment : Fragment(), MenuProvider {
         activity?.addMenuProvider(this, viewLifecycleOwner)
         settingActionBar()
         controller = findNavController()
+        component = (activity?.application as App).appComponent.settingsFragmentComponent()
+        component.inject(this)
+        mainViewModel = ViewModelProvider(this, vmFactory).get(MainViewModel::class.java)
         binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
-                R.id.radioLightTheme -> setLightTheme()
-                R.id.radioDarkTheme -> setDarkTheme()
-                R.id.radioSystemTheme -> setSystemTheme()
+                R.id.radioLightTheme -> mainViewModel.setTheme(AppConstants.LIGHT_THEME)
+                R.id.radioDarkTheme -> mainViewModel.setTheme(AppConstants.DARK_THEME)
+                R.id.radioSystemTheme -> mainViewModel.setTheme(AppConstants.SYSTEM_THEME)
             }
         }
-    }
-
-    private fun setLightTheme() {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-    }
-
-    private fun setDarkTheme() {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-    }
-
-    private fun setSystemTheme() {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        var theme = mainViewModel.getTheme()
+        when (theme){
+            AppConstants.LIGHT_THEME -> binding.radioGroup.check(R.id.radioLightTheme)
+            AppConstants.DARK_THEME -> binding.radioGroup.check(R.id.radioDarkTheme)
+            AppConstants.SYSTEM_THEME -> binding.radioGroup.check(R.id.radioSystemTheme )
+        }
     }
 
     private fun settingActionBar() {

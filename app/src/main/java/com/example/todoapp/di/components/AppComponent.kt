@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.todoapp.di.modules.DataBaseModule
 import com.example.todoapp.di.modules.NetworkModule
 import com.example.todoapp.di.modules.RepositoryModule
+import com.example.todoapp.presentation.fragments.SettingsFragmentDirections
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Scope
@@ -27,5 +28,7 @@ interface AppComponent {
     fun mainFragmentComponent(): MainFragmentComponent
 
     fun editItemFragmentComponent(): EditItemFragmentComponent
+
+    fun settingsFragmentComponent(): SettingsFragmentComponent
 
 }

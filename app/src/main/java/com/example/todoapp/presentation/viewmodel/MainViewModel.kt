@@ -1,11 +1,13 @@
 package com.example.todoapp.presentation.viewmodel
 
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.todoapp.data.database.Importance
 import com.example.todoapp.data.database.TodoItem
 import com.example.todoapp.data.repository.TodoItemsRepository
+import com.example.todoapp.utils.AppConstants
 import com.example.todoapp.utils.IdGenerator.getNewId
 import com.example.todoapp.utils.RestoreTodoItem
 import kotlinx.coroutines.launch
@@ -39,6 +41,19 @@ class MainViewModel @Inject constructor(private val repository: TodoItemsReposit
         delete(item)
     }
 
+    fun setTheme(theme: String){
+        when (theme){
+            AppConstants.LIGHT_THEME -> setLightTheme()
+            AppConstants.DARK_THEME -> setDarkTheme()
+            AppConstants.SYSTEM_THEME -> setSystemTheme()
+        }
+        repository.saveTheme(theme)
+    }
+
+    fun getTheme(): String? {
+        return repository.getTheme()
+    }
+
     private fun insert(item: TodoItem) = viewModelScope.launch {
         repository.insert(item)
     }
@@ -60,7 +75,19 @@ class MainViewModel @Inject constructor(private val repository: TodoItemsReposit
         }
     }
 
-    fun getItemByID(id: String): TodoItem {
+    private fun getItemByID(id: String): TodoItem {
         return repository.getItemByID(id)
+    }
+
+    private fun setLightTheme() {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+    }
+
+    private fun setDarkTheme() {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+    }
+
+    private fun setSystemTheme() {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
     }
 }
