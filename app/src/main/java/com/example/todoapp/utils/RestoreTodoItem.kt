@@ -13,5 +13,4 @@ object RestoreTodoItem {
     fun setItem(deleteItem: TodoItem){
         item = deleteItem
     }
-
 }
