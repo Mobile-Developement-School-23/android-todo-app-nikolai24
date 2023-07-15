@@ -46,20 +46,21 @@ class SettingsFragment : Fragment(), MenuProvider {
         }
     }
 
-    private fun setLightTheme(){
+    private fun setLightTheme() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
-    private fun setDarkTheme(){
+    private fun setDarkTheme() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
 
-    private fun setSystemTheme(){
+    private fun setSystemTheme() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
     }
 
-    private fun settingActionBar(){
-        (activity as AppCompatActivity).supportActionBar?.title = context?.resources?.getString(R.string.settings_title)
+    private fun settingActionBar() {
+        (activity as AppCompatActivity).supportActionBar?.title =
+            context?.resources?.getString(R.string.settings_title)
         (activity as AppCompatActivity).supportActionBar?.subtitle = ""
         (activity as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_close_24)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)

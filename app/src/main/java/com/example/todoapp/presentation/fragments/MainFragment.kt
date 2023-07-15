@@ -153,10 +153,10 @@ class MainFragment : Fragment(), MenuProvider {
     private fun swipeToDelete(position: Int) {
         val item = adapter.listItems[position]
         mainViewModel.deleteItem(item)
-        runSnackbar(item.text)
+        showSnackbar(item.text)
     }
 
-    private fun runSnackbar(name: String){
+    private fun showSnackbar(name: String){
         Snackbar.make(binding.root, resources.getString(R.string.delete_title) + name, 5000).apply {
             setAction(resources.getString(R.string.cancel)){
                 mainViewModel.restoreItem()

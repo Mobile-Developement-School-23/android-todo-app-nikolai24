@@ -74,7 +74,7 @@ class EditItemFragment : Fragment(), MenuProvider {
         } else {
             binding.deleteButton.setOnClickListener {
                 mainViewModel.deleteItem(item)
-                runSnackbar(item.text)
+                showSnackbar(item.text)
                 startMainActivity()
             }
             binding.description.setText(item.text)
@@ -82,7 +82,7 @@ class EditItemFragment : Fragment(), MenuProvider {
         }
     }
 
-    private fun runSnackbar(name: String){
+    private fun showSnackbar(name: String){
         Snackbar.make(binding.root, resources.getString(R.string.delete_title) + name, 5000).apply {
             setAction(resources.getString(R.string.cancel)){
                 mainViewModel.restoreItem()
