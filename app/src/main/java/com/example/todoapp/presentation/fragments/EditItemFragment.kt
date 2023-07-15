@@ -83,8 +83,8 @@ class EditItemFragment : Fragment(), MenuProvider {
     }
 
     fun runSnackbar(name: String){
-        Snackbar.make(binding.root, "Удалено дело: $name", 5000).apply {
-            setAction("Отмена"){
+        Snackbar.make(binding.root, resources.getString(R.string.delete_title) + name, 5000).apply {
+            setAction(resources.getString(R.string.cancel)){
                 mainViewModel.restoreItem()
             }.show()
         }

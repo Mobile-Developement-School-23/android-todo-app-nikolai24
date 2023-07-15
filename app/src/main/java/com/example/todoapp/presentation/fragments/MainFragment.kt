@@ -119,13 +119,13 @@ class MainFragment : Fragment(), MenuProvider {
                 mainViewModel.dataUpdate()
                 Toast.makeText(
                     requireActivity().applicationContext,
-                    context?.resources?.getString(R.string.request_sent),
+                    resources.getString(R.string.request_sent),
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
                 Toast.makeText(
                     requireActivity().applicationContext,
-                    context?.resources?.getString(R.string.no_internet),
+                    resources.getString(R.string.no_internet),
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -157,8 +157,8 @@ class MainFragment : Fragment(), MenuProvider {
     }
 
     fun runSnackbar(name: String){
-        Snackbar.make(binding.root, "Удалено дело: $name", 5000).apply {
-            setAction("Отмена"){
+        Snackbar.make(binding.root, resources.getString(R.string.delete_title) + name, 5000).apply {
+            setAction(resources.getString(R.string.cancel)){
                 mainViewModel.restoreItem()
             }.show()
         }
@@ -166,7 +166,7 @@ class MainFragment : Fragment(), MenuProvider {
 
     private fun setSubtitle(s: String) {
         (activity as AppCompatActivity).supportActionBar?.subtitle =
-            context?.resources?.getString(R.string.sub_title) + s
+            resources.getString(R.string.sub_title) + s
     }
 
     override fun onDestroyView() {

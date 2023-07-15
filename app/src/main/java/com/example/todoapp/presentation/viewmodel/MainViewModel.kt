@@ -7,7 +7,7 @@ import com.example.todoapp.data.database.Importance
 import com.example.todoapp.data.database.TodoItem
 import com.example.todoapp.data.repository.TodoItemsRepository
 import com.example.todoapp.utils.IdGenerator.getNewId
-import com.example.todoapp.utils.Restore
+import com.example.todoapp.utils.RestoreTodoItem
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,12 +30,12 @@ class MainViewModel @Inject constructor(private val repository: TodoItemsReposit
     }
 
     fun restoreItem() {
-        var item = Restore.getItem()
+        var item = RestoreTodoItem.getItem()
         insert(item)
     }
 
     fun deleteItem(item: TodoItem) {
-        Restore.setItem(item)
+        RestoreTodoItem.setItem(item)
         delete(item)
     }
 
