@@ -2,16 +2,70 @@
     <style name="AppBackground">
         <item name="android:background">@color/floral_white</item>
     </style>
+    <style name="HeaderTextStyle">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginStart">@dimen/start_15</item>
+        <item name="android:layout_marginTop">@dimen/top_22</item>
+        <item name="android:textSize">@dimen/size_18</item>
+    </style>
     <style name="TextColor">
         <item name="android:textColor">@color/black</item>
     </style>
     <style name="DateTextColor">
         <item name="android:textColor">@color/blue</item>
     </style>
-    <style name="LineColor">
+    <style name="LineStyle">
         <item name="android:background">@color/grey</item>
+        <item name="android:layout_marginStart">@dimen/start_15</item>
+        <item name="android:layout_marginEnd">@dimen/end_15</item>
+        <item name="android:layout_marginTop">@dimen/top_22</item>
+        <item name="android:layout_height">@dimen/height_1</item>
     </style>
     <style name="DeleteButton">
         <item name="android:backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/vivid_red</item>
+        <item name="android:textSize">@dimen/size_18</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:layout_marginStart">@dimen/start_15</item>
+        <item name="android:layout_marginTop">@dimen/top_40</item>
+    </style>
+    <style name="RecyclerStyle">
+        <item name="android:paddingTop">@dimen/top_18</item>
+        <item name="android:paddingBottom">@dimen/bottom_40</item>
+    </style>
+    <style name="FabStyle">
+        <item name="android:layout_marginEnd">@dimen/end_16</item>
+        <item name="android:layout_marginBottom">@dimen/bottom_40</item>
+    </style>
+    <style name="RadioGroupStyle">
+        <item name="android:layout_marginStart">@dimen/start_15</item>
+        <item name="android:layout_marginTop">@dimen/top_10</item>
+    </style>
+    <style name="RadioButtonStyle">
+        <item name="android:textSize">@dimen/size_16</item>
+        <item name="android:layout_marginTop">@dimen/top_4</item>
+    </style>
+    <style name="DeadlineStyle">
+        <item name="android:textSize">@dimen/size_16</item>
+        <item name="android:textColor">@color/low_grey</item>
+        <item name="android:layout_marginStart">@dimen/start_15</item>
+        <item name="android:layout_marginTop">@dimen/top_2</item>
+        <item name="android:paddingBottom">@dimen/padding_10</item>
+    </style>
+    <style name="InfoIconStyle">
+        <item name="android:layout_marginEnd">@dimen/end_15</item>
+        <item name="android:layout_marginTop">@dimen/top_14</item>
+    </style>
+    <style name="DescriptionStyle">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/size_18</item>
+        <item name="android:layout_marginStart">@dimen/start_15</item>
+        <item name="android:layout_marginEnd">@dimen/end_15</item>
+        <item name="android:layout_marginTop">@dimen/top_10</item>
+        <item name="android:paddingBottom">@dimen/padding_10</item>
+    </style>
+    <style name="CardItemStyle">
+        <item name="android:layout_marginStart">@dimen/start_15</item>
+        <item name="android:layout_marginEnd">@dimen/end_15</item>
     </style>
 </resources>

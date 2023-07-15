@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="start_15">15dp</dimen>
+    <dimen name="top_2">4dp</dimen>
+    <dimen name="top_4">4dp</dimen>
+    <dimen name="top_10">10dp</dimen>
+    <dimen name="top_14">10dp</dimen>
+    <dimen name="top_18">18dp</dimen>
+    <dimen name="top_22">22dp</dimen>
+    <dimen name="top_40">40dp</dimen>
+    <dimen name="bottom_40">40dp</dimen>
+    <dimen name="end_15">15dp</dimen>
+    <dimen name="end_16">16dp</dimen>
+    <dimen name="size_16">16sp</dimen>
+    <dimen name="size_18">18sp</dimen>
+    <dimen name="height_1">1dp</dimen>
+    <dimen name="padding_10">10dp</dimen>
+</resources>

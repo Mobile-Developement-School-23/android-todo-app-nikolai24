@@ -6,7 +6,6 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         style="@style/AppBackground"
@@ -45,14 +44,11 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-            style="@style/TextColor"
+            style="@style/HeaderTextStyle"
             android:id="@+id/importanceTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/importance"
-            android:textSize="18sp"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardView"/>
 
@@ -81,25 +77,18 @@
         </androidx.cardview.widget.CardView>
 
         <View
-            style="@style/LineColor"
+            style="@style/LineStyle"
             android:id="@+id/firstLine"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="22dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardViewSpinner"/>
 
         <TextView
-            style="@style/TextColor"
+            style="@style/HeaderTextStyle"
             android:id="@+id/deadlineTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/deadline"
-            android:textSize="18sp"
-            android:layout_marginTop="22dp"
-            android:layout_marginStart="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/firstLine"/>
 
@@ -142,13 +131,9 @@
         </androidx.cardview.widget.CardView>
 
         <View
-            style="@style/LineColor"
+            style="@style/LineStyle"
             android:id="@+id/secondLine"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="22dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardViewDate"/>
 
@@ -158,14 +143,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/delete"
-            android:textColor="@color/vivid_red"
-            android:textSize="18sp"
-            android:textAllCaps="false"
-            android:drawableLeft= "@drawable/baseline_delete_red_24"
-            android:layout_marginTop="40dp"
-            android:layout_marginStart="15dp"
+            android:drawableStart="@drawable/baseline_delete_red_24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/secondLine" />
+            app:layout_constraintTop_toBottomOf="@id/secondLine"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
