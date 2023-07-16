@@ -23,6 +23,7 @@ import com.example.todoapp.utils.DateConverter
 import com.example.todoapp.utils.NetworkCheck.isNetworkAvailable
 import com.example.todoapp.presentation.viewmodel.MainViewModel
 import com.example.todoapp.presentation.viewmodel.MainViewModelFactory
+import com.example.todoapp.utils.RestoreTodoItem
 import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
@@ -92,6 +93,7 @@ class MainFragment : Fragment(), MenuProvider {
             }
         }
         swipeInit()
+        checkDeleteItem()
     }
 
     private fun settingActionBar(){
@@ -154,6 +156,13 @@ class MainFragment : Fragment(), MenuProvider {
         val item = adapter.listItems[position]
         mainViewModel.deleteItem(item)
         showSnackbar(item.text)
+    }
+
+    private fun checkDeleteItem(){
+        if (RestoreTodoItem.getDeleteFlag()){
+            showSnackbar(RestoreTodoItem.getName())
+            RestoreTodoItem.setDeleteFlag(flag = false)
+        }
     }
 
     private fun showSnackbar(name: String){

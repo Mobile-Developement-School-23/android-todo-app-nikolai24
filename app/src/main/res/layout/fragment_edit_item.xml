@@ -88,7 +88,7 @@
             android:id="@+id/deadlineTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/deadline"
+            android:text="@string/deadline_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/firstLine"/>
 

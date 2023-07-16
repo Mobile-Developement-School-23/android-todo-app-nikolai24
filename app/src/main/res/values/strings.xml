@@ -8,7 +8,7 @@
     <string name="save">Сохранить</string>
     <string name="importance">Важность</string>
     <string name="what_todo">Что надо сделать...</string>
-    <string name="deadline">Сделать до</string>
+    <string name="deadline_title">Сделать до</string>
     <string name="delete">Удалить</string>
     <string name="delete_title">Удалено дело:&#160;</string>
     <string name="cancel">Отмена</string>
@@ -20,6 +20,12 @@
     <string name="light_theme_selection">Всегда светлая</string>
     <string name="dark_theme_selection">Всегда тёмная</string>
     <string name="system_theme_selection">Как в системе</string>
+    <string name="common_menu">&#160;Нет</string>
+    <string name="low_menu">↓ Низкая</string>
+    <string name="high_menu"><font color='#FF3B30'>&#160;&#160;!&#160;&#160;Высокая</font></string>
+    <string name="common">Нет</string>
+    <string name="low">↓ Низкая</string>
+    <string name="high">! Высокая</string>
     <string-array name="importance_array">
         <item>Нет</item>
         <item>↓ Низкая</item>
