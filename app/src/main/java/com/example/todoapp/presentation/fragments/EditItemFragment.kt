@@ -80,8 +80,6 @@ class EditItemFragment : Fragment(), MenuProvider {
     @Inject
     lateinit var vmFactory: MainViewModelFactory
     private lateinit var mainViewModel: MainViewModel
-    private var _binding: FragmentEditItemBinding? = null
-    private val binding get() = _binding!!
     private lateinit var controller: NavController
     private val args: EditItemFragmentArgs by navArgs()
     private lateinit var item: TodoItem
@@ -415,11 +413,6 @@ class EditItemFragment : Fragment(), MenuProvider {
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         if (menuItem.itemId == R.id.actionSave) {
             item.text = description
-//            when (binding.spinner.selectedItemPosition) {
-//                0 -> importance = Importance.COMMON
-//                1 -> importance = Importance.LOW
-//                2 -> importance = Importance.HIGH
-//            }
             item.importance = importance
             item.modifiedAt = DateConverter.getLongDate()
             item.deadline = deadline
@@ -434,26 +427,5 @@ class EditItemFragment : Fragment(), MenuProvider {
             }
         }
         return false
-    }
-
-    private fun spinnerCreated(){
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.importance_array,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.spinner.adapter = adapter
-        }
-        when (importance) {
-            Importance.COMMON -> binding.spinner.setSelection(0)
-            Importance.LOW -> binding.spinner.setSelection(1)
-            Importance.HIGH -> binding.spinner.setSelection(2)
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
