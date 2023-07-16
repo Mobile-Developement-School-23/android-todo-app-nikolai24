@@ -312,7 +312,7 @@ class EditItemFragment : Fragment(), MenuProvider {
                 )
                 Card(
                     modifier = Modifier
-                        .width(160.dp)
+                        .width(165.dp)
                         .padding(top = 20.dp)
                         .wrapContentHeight()
                         .clickable {
@@ -333,7 +333,7 @@ class EditItemFragment : Fragment(), MenuProvider {
                         color = colorResource(id = R.color.blue),
                         fontSize = 17.sp,
                         modifier = Modifier
-                            .padding(start = 15.dp, end = 15.dp, top = 8.dp, bottom = 8.dp)
+                            .padding(start = 15.dp, top = 8.dp, bottom = 8.dp)
                     )
                 }
             }
