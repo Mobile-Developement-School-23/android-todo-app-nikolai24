@@ -52,6 +52,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
@@ -187,20 +188,19 @@ class EditItemFragment : Fragment(), MenuProvider {
     fun ImportanceCard(){
         val expanded = remember { mutableStateOf(false) }
         val importanceText = remember { mutableStateOf(resources.getString(R.string.common)) }
-        val colorId = remember { mutableIntStateOf(resources.getColor(R.color.black)) }
-        var c = "black"
+        val textColor = remember { mutableStateOf(Color.Unspecified) }
         when (importance){
             Importance.LOW -> {
                 importanceText.value = resources.getString(R.string.low)
-                colorId.value = resources.getColor(R.color.black)
+                textColor.value = Color.Black
             }
             Importance.HIGH -> {
                 importanceText.value = resources.getString(R.string.high)
-                colorId.value = resources.getColor(R.color.vivid_red)
+                textColor.value = Color.Red
             }
             else -> {
                 importanceText.value = resources.getString(R.string.common)
-                colorId.value = resources.getColor(R.color.black)
+                textColor.value = Color.Black
             }
         }
         Card(
@@ -219,6 +219,7 @@ class EditItemFragment : Fragment(), MenuProvider {
         ) {
             Text(
                 text = importanceText.value,
+                color = textColor.value,
                 fontSize = 17.sp,
                 modifier = Modifier
                     .padding(start = 15.dp, end = 15.dp, top = 8.dp, bottom = 8.dp)
@@ -233,7 +234,8 @@ class EditItemFragment : Fragment(), MenuProvider {
             ){
                 DropdownMenuItem(
                     text = { Text(stringResource(id = R.string.common_menu),
-                        fontSize = 17.sp)},
+                        fontSize = 17.sp,
+                        fontWeight = FontWeight.Normal)},
                     onClick = {
                         importance = Importance.COMMON
                         importanceText.value = resources.getString(R.string.common)
@@ -241,7 +243,8 @@ class EditItemFragment : Fragment(), MenuProvider {
                     })
                 DropdownMenuItem(
                     text = { Text(stringResource(id = R.string.low_menu),
-                        fontSize = 17.sp) },
+                        fontSize = 17.sp,
+                        fontWeight = FontWeight.Normal) },
                     onClick = {
                         importance = Importance.LOW
                         importanceText.value = resources.getString(R.string.low)
@@ -250,7 +253,8 @@ class EditItemFragment : Fragment(), MenuProvider {
                 DropdownMenuItem(
                     text = { Text(stringResource(id = R.string.high_menu),
                         color = colorResource(id = R.color.vivid_red),
-                        fontSize = 17.sp) },
+                        fontSize = 17.sp,
+                        fontWeight = FontWeight.Normal) },
                     onClick = {
                         importance = Importance.HIGH
                         importanceText.value = resources.getString(R.string.high)
