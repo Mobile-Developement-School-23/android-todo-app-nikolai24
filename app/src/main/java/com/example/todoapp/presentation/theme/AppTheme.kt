@@ -19,6 +19,7 @@ fun AppTheme(
 
     MaterialTheme(
         colorScheme = colors,
+        typography = typography,
         content = content
     )
 }
@@ -30,7 +31,10 @@ private val LightColors = lightColorScheme(
     surface = LightGrey,
     onSurface = Black,
     background = FloralWhite,
-    onBackground = White
+    onBackground = White,
+    onPrimary = Blue,
+    onSecondary = LightBlue,
+    onTertiary = White
 )
 
 private val DarkColors = darkColorScheme(
@@ -40,5 +44,8 @@ private val DarkColors = darkColorScheme(
     surface = LightGrey,
     onSurface = White,
     background = Black,
-    onBackground = Grey
+    onBackground = Grey,
+    onPrimary = Blue,
+    onSecondary = LightBlue,
+    onTertiary = White
 )

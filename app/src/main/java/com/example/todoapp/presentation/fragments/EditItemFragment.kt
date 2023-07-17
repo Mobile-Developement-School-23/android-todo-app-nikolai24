@@ -162,7 +162,7 @@ class EditItemFragment : Fragment(), MenuProvider {
                     editText.value = newText
                     description = newText
                 },
-                textStyle = TextStyle.Default.copy(fontSize = 20.sp),
+                textStyle = MaterialTheme.typography.bodyLarge,
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = Color.Transparent,
                     unfocusedContainerColor = Color.Transparent,
@@ -179,7 +179,7 @@ class EditItemFragment : Fragment(), MenuProvider {
         Text(
             text = stringResource(id = R.string.importance),
             color = MaterialTheme.colorScheme.primary,
-            fontSize = 18.sp,
+            style = MaterialTheme.typography.titleLarge,
             modifier = Modifier
                 .padding(top = 20.dp, start = 15.dp)
                 .fillMaxWidth()
@@ -223,7 +223,7 @@ class EditItemFragment : Fragment(), MenuProvider {
             Text(
                 text = importanceText.value,
                 color = textColor.value,
-                fontSize = 17.sp,
+                style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
                     .padding(start = 15.dp, end = 15.dp, top = 8.dp, bottom = 8.dp)
             )
@@ -237,7 +237,7 @@ class EditItemFragment : Fragment(), MenuProvider {
             ){
                 DropdownMenuItem(
                     text = { Text(stringResource(id = R.string.common_menu),
-                        fontSize = 17.sp,
+                        style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Normal)},
                     onClick = {
                         importance = Importance.COMMON
@@ -246,7 +246,7 @@ class EditItemFragment : Fragment(), MenuProvider {
                     })
                 DropdownMenuItem(
                     text = { Text(stringResource(id = R.string.low_menu),
-                        fontSize = 17.sp,
+                        style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Normal) },
                     onClick = {
                         importance = Importance.LOW
@@ -256,7 +256,7 @@ class EditItemFragment : Fragment(), MenuProvider {
                 DropdownMenuItem(
                     text = { Text(stringResource(id = R.string.high_menu),
                         color = MaterialTheme.colorScheme.tertiary,
-                        fontSize = 17.sp,
+                        style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Normal) },
                     onClick = {
                         importance = Importance.HIGH
@@ -311,7 +311,7 @@ class EditItemFragment : Fragment(), MenuProvider {
                 Text(
                     text = stringResource(id = R.string.deadline_title),
                     color = MaterialTheme.colorScheme.primary,
-                    fontSize = 18.sp
+                    style = MaterialTheme.typography.titleLarge
                 )
                 Card(
                     modifier = Modifier
@@ -334,7 +334,7 @@ class EditItemFragment : Fragment(), MenuProvider {
                     Text(
                         text = date.value,
                         color = MaterialTheme.colorScheme.secondary,
-                        fontSize = 17.sp,
+                        style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier
                             .padding(start = 15.dp, top = 8.dp, bottom = 8.dp)
                     )
@@ -353,12 +353,12 @@ class EditItemFragment : Fragment(), MenuProvider {
                     }
                 },
                 colors = SwitchDefaults.colors(
-                    checkedThumbColor = colorResource(id = R.color.blue),
-                    checkedTrackColor = colorResource(id = R.color.low_blue),
-                    checkedBorderColor = colorResource(id = R.color.low_blue),
-                    uncheckedThumbColor = colorResource(id = R.color.white),
-                    uncheckedTrackColor = colorResource(id = R.color.grey),
-                    uncheckedBorderColor = colorResource(id = R.color.grey)
+                    checkedThumbColor = MaterialTheme.colorScheme.onPrimary,
+                    checkedTrackColor = MaterialTheme.colorScheme.onSecondary,
+                    checkedBorderColor = MaterialTheme.colorScheme.onSecondary,
+                    uncheckedThumbColor = MaterialTheme.colorScheme.onTertiary,
+                    uncheckedTrackColor = MaterialTheme.colorScheme.surface,
+                    uncheckedBorderColor = MaterialTheme.colorScheme.surface
                 )
             )
         }
@@ -396,7 +396,7 @@ class EditItemFragment : Fragment(), MenuProvider {
                 Text(
                     text = stringResource(R.string.delete),
                     color = MaterialTheme.colorScheme.tertiary,
-                    fontSize = 18.sp
+                    style = MaterialTheme.typography.labelLarge
                 )
             }
         }
