@@ -27,16 +27,18 @@ private val LightColors = lightColorScheme(
     primary = Black,
     secondary = Blue,
     tertiary = Red,
+    surface = LightGrey,
+    onSurface = Black,
     background = FloralWhite,
-    onBackground = White,
-    surface = LightGrey
+    onBackground = White
 )
 
 private val DarkColors = darkColorScheme(
     primary = White,
     secondary = White,
     tertiary = Red,
+    surface = LightGrey,
+    onSurface = White,
     background = Black,
-    onBackground = Grey,
-    surface = LightGrey
+    onBackground = Grey
 )
