@@ -69,6 +69,7 @@ import com.example.todoapp.data.database.Importance
 import com.example.todoapp.data.database.TodoItem
 import com.example.todoapp.databinding.FragmentEditItemBinding
 import com.example.todoapp.di.components.EditItemFragmentComponent
+import com.example.todoapp.presentation.theme.AppTheme
 import com.example.todoapp.utils.DateConverter
 import com.example.todoapp.presentation.viewmodel.MainViewModel
 import com.example.todoapp.presentation.viewmodel.MainViewModelFactory
@@ -97,7 +98,9 @@ class EditItemFragment : Fragment(), MenuProvider {
     ): View? {
         return ComposeView(requireContext()).apply {
             setContent {
-                MyScreen()
+                AppTheme {
+                    MyScreen()
+                }
             }
         }
     }
@@ -122,7 +125,7 @@ class EditItemFragment : Fragment(), MenuProvider {
     fun MyScreen() {
         Column(
             Modifier
-                .background(colorResource(id = R.color.floral_white))
+                .background(MaterialTheme.colorScheme.background)
                 .verticalScroll(rememberScrollState())
         ){
             CardTextField()
@@ -150,7 +153,7 @@ class EditItemFragment : Fragment(), MenuProvider {
                 defaultElevation = 10.dp
             ),
             colors = CardDefaults.cardColors(
-                containerColor = Color.White,
+                containerColor = MaterialTheme.colorScheme.onBackground,
             )
         ) {
             TextField(
@@ -159,11 +162,11 @@ class EditItemFragment : Fragment(), MenuProvider {
                     editText.value = newText
                     description = newText
                 },
-                textStyle = TextStyle.Default.copy(fontSize = 20.sp, background = Color.White),
+                textStyle = TextStyle.Default.copy(fontSize = 20.sp),
                 colors = TextFieldDefaults.colors(
-                    focusedContainerColor = Color.White,
-                    unfocusedContainerColor = Color.White,
-                    disabledContainerColor = Color.White,
+                    focusedContainerColor = Color.Transparent,
+                    unfocusedContainerColor = Color.Transparent,
+                    disabledContainerColor = Color.Transparent,
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
                 )
@@ -175,7 +178,7 @@ class EditItemFragment : Fragment(), MenuProvider {
     fun ImportanceTitle() {
         Text(
             text = stringResource(id = R.string.importance),
-            color = colorResource(id = R.color.black),
+            color = MaterialTheme.colorScheme.primary,
             fontSize = 18.sp,
             modifier = Modifier
                 .padding(top = 20.dp, start = 15.dp)
@@ -192,15 +195,15 @@ class EditItemFragment : Fragment(), MenuProvider {
         when (importance){
             Importance.LOW -> {
                 importanceText.value = resources.getString(R.string.low)
-                textColor.value = Color.Black
+                textColor.value = MaterialTheme.colorScheme.primary
             }
             Importance.HIGH -> {
                 importanceText.value = resources.getString(R.string.high)
-                textColor.value = Color.Red
+                textColor.value = MaterialTheme.colorScheme.tertiary
             }
             else -> {
                 importanceText.value = resources.getString(R.string.common)
-                textColor.value = Color.Black
+                textColor.value = MaterialTheme.colorScheme.primary
             }
         }
         Card(
@@ -213,7 +216,7 @@ class EditItemFragment : Fragment(), MenuProvider {
                 defaultElevation = 10.dp
             ),
             colors = CardDefaults.cardColors(
-                containerColor = Color.White,
+                containerColor = MaterialTheme.colorScheme.onBackground,
             ),
             onClick = { expanded.value = true }
         ) {
@@ -227,7 +230,7 @@ class EditItemFragment : Fragment(), MenuProvider {
         }
         Box{
             DropdownMenu(
-                modifier = Modifier.background(Color.White),
+                modifier = Modifier.background(MaterialTheme.colorScheme.onBackground),
                 expanded = expanded.value,
                 onDismissRequest = { expanded.value = false },
                 offset = DpOffset(x = 15.dp, y = 5.dp)
@@ -252,7 +255,7 @@ class EditItemFragment : Fragment(), MenuProvider {
                     })
                 DropdownMenuItem(
                     text = { Text(stringResource(id = R.string.high_menu),
-                        color = colorResource(id = R.color.vivid_red),
+                        color = MaterialTheme.colorScheme.tertiary,
                         fontSize = 17.sp,
                         fontWeight = FontWeight.Normal) },
                     onClick = {
@@ -266,7 +269,7 @@ class EditItemFragment : Fragment(), MenuProvider {
 
     @Composable
     fun Divider(){
-        Divider(color = colorResource(id = R.color.grey),
+        Divider(color = MaterialTheme.colorScheme.surface,
             thickness = 1.dp,
             modifier = Modifier
                 .padding(start = 15.dp, end = 15.dp, top = 24.dp)
@@ -307,7 +310,7 @@ class EditItemFragment : Fragment(), MenuProvider {
             Column() {
                 Text(
                     text = stringResource(id = R.string.deadline_title),
-                    color = colorResource(id = R.color.black),
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 18.sp
                 )
                 Card(
@@ -325,12 +328,12 @@ class EditItemFragment : Fragment(), MenuProvider {
                         defaultElevation = 10.dp
                     ),
                     colors = CardDefaults.cardColors(
-                        containerColor = Color.White,
+                        containerColor = MaterialTheme.colorScheme.onBackground,
                     )
                 ) {
                     Text(
                         text = date.value,
-                        color = colorResource(id = R.color.blue),
+                        color = MaterialTheme.colorScheme.secondary,
                         fontSize = 17.sp,
                         modifier = Modifier
                             .padding(start = 15.dp, top = 8.dp, bottom = 8.dp)
@@ -379,7 +382,7 @@ class EditItemFragment : Fragment(), MenuProvider {
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 10.dp),
             shape = MaterialTheme.shapes.small,
             colors = ButtonDefaults.buttonColors(
-                containerColor = colorResource(id = R.color.white)
+                containerColor = MaterialTheme.colorScheme.background
             ),
             elevation = ButtonDefaults.buttonElevation(defaultElevation = 10.dp)
         ) {
@@ -387,12 +390,12 @@ class EditItemFragment : Fragment(), MenuProvider {
                 Icon(
                     painter = painterResource(id = R.drawable.baseline_delete_red_24),
                     contentDescription = stringResource(R.string.delete),
-                    tint = Color.Red
+                    tint = MaterialTheme.colorScheme.tertiary
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
                     text = stringResource(R.string.delete),
-                    color = Color.Red,
+                    color = MaterialTheme.colorScheme.tertiary,
                     fontSize = 18.sp
                 )
             }
