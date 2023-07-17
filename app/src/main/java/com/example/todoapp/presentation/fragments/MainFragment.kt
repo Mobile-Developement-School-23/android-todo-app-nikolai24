@@ -138,10 +138,12 @@ class MainFragment : Fragment(), MenuProvider {
 
     private fun startEditItemFragment(id: String, position: Int) {
         val action = MainFragmentDirections.actionMainFragmentToEditItemFragment(id, position)
+        activity?.removeMenuProvider(this)
         controller.navigate(action)
     }
     private fun startSettingsFragment() {
         val action = MainFragmentDirections.actionMainFragmentToSettingsFragment()
+        activity?.removeMenuProvider(this)
         controller.navigate(action)
     }
 
