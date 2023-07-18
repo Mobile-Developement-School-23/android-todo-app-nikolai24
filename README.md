@@ -12,4 +12,12 @@
 - Поддержан эффект нажатия на кнопки, меняется цвет при нажатии.
 - Добавлена анимация перехода/возвращения между фрагментами.  
 - Создан не блокирующий снекбар отмены удаления. В снекбаре есть текст “Удалено дело: Имя_Дела” + кнопка отменить. Снекбар появляется и скрывается с анимацией выезда снизу экрана. Скрытие происходит по истечению 5 секунд.
+##     
+![](https://github.com/Nikolai24/HW6_Screen/blob/master/Screen01.jpg)  
+##  
+![](https://github.com/Nikolai24/HW6_Screen/blob/master/Screen02.jpg)  
+##  
+![](https://github.com/Nikolai24/HW6_Screen/blob/master/Screen03.jpg)     
+##  
+![](https://github.com/Nikolai24/HW6_Screen/blob/master/Screen04.jpg) 
 	
